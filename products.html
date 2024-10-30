@@ -202,7 +202,7 @@
                         <a href="cart.html">Cart</a>
                         <div class="cart-icon">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="badge">3</span>
+                            <span class="badge" id="cart-count">0</span>
                         </div>
                     </li>
                 </ul>
@@ -243,28 +243,28 @@
     <!-- JavaScript -->
     <script>
         const products = [
-            { name: 'Product 1', price: 29.99, image: 'images/product1.jpg' },
-            { name: 'Product 2', price: 49.99, image: 'images/product2.jpg' },
-            { name: 'Product 3', price: 19.99, image: 'images/product3.jpg' },
-            { name: 'Product 4', price: 39.99, image: 'images/product4.jpg' },
-            { name: 'Product 5', price: 59.99, image: 'images/product5.jpg' },
-            { name: 'Product 6', price: 79.99, image: 'images/product6.jpg' },
-            { name: 'Product 7', price: 99.99, image: 'images/product7.jpg' },
-            { name: 'Product 8', price: 89.99, image: 'images/product8.jpg' },
-            { name: 'Product 9', price: 39.99, image: 'images/product9.jpg' },
-            { name: 'Product 10', price: 29.99, image: 'images/product1.jpg' },
-            { name: 'Product 11', price: 49.99, image: 'images/product2.jpg' },
-            { name: 'Product 12', price: 19.99, image: 'images/product3.jpg' },
+            { id: 1, name: 'Product 1', price: 29.99, image: 'images/product1.jpg' },
+            { id: 2, name: 'Product 2', price: 49.99, image: 'images/product2.jpg' },
+            { id: 3, name: 'Product 3', price: 19.99, image: 'images/product3.jpg' },
+            { id: 4, name: 'Product 4', price: 39.99, image: 'images/product4.jpg' },
+            { id: 5, name: 'Product 5', price: 59.99, image: 'images/product5.jpg' },
+            { id: 6, name: 'Product 6', price: 79.99, image: 'images/product6.jpg' },
+            { id: 7, name: 'Product 7', price: 99.99, image: 'images/product7.jpg' },
+            { id: 8, name: 'Product 8', price: 89.99, image: 'images/product8.jpg' },
+            { id: 9, name: 'Product 9', price: 39.99, image: 'images/product9.jpg' },
+            { id: 10, name: 'Product 10', price: 29.99, image: 'images/product1.jpg' },
+            { id: 11, name: 'Product 11', price: 49.99, image: 'images/product2.jpg' },
+            { id: 12, name: 'Product 12', price: 19.99, image: 'images/product3.jpg' },
             // Add more products as needed
         ];
 
         let currentPage = 1;
-        const itemsPerPage = 6; // Number of items per page
+        const itemsPerPage = 6; 
         const totalPages = Math.ceil(products.length / itemsPerPage);
 
         function renderProducts(page) {
             const productList = document.getElementById('product-list');
-            productList.innerHTML = ''; // Clear previous products
+            productList.innerHTML = ''; 
             const startIndex = (page - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
 
@@ -284,7 +284,7 @@
                     <img src="${product.image}" alt="${product.name}">
                     <h3>${product.name}</h3>
                     <p class="price">$${product.price.toFixed(2)}</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
                 `;
                 productList.appendChild(productCard);
             });
@@ -322,13 +322,41 @@
         }
 
         function filterProducts() {
-            // When filtering, reset to the first page
-            currentPage = 1;
+            currentPage =  1;
             renderProducts(currentPage);
+        }
+
+        // Get cart count 
+        function getCartCount(){
+            const cart = JSON.parse(localStorage.getItem('shopCart')) || [];
+            return cart.length; 
+        }
+
+        // Update cart count
+        function updateCartCount(){
+            document.getElementById("cart-count").innerText = getCartCount(); 
+        }
+
+        // Add to cart function 
+        // (Product ID is the same as index here for brevity)
+        function addToCart(id, productName, price) {
+            let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id: id, productName, price, quantity: 1 }); 
+            }
+            localStorage.setItem('shopCart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`${productName} has been added to your cart!`);
         }
 
         // Initial render
         renderProducts(currentPage);
+        updateCartCount(); 
+
+
     </script>
 </body>
 
