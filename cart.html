@@ -56,24 +56,29 @@
             margin: 20px 0;
         }
 
+        /* Align cart header items in a grid layout */
         .cart-header {
-            display: flex;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            text-align: center;
             font-weight: bold;
             border-bottom: 2px solid #ff6600;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            color: #333;
         }
 
         .cart-header i {
-            margin-right: 10px;
             font-size: 24px;
             color: #ff6600;
+            margin-right: 8px;
         }
 
+        /* Align cart items with grid */
         .cart-item {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            align-items: center;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 10px;
@@ -82,18 +87,19 @@
         }
 
         .cart-item img {
-            width: 100px;
+            width: 80px;
             height: auto;
             border-radius: 5px;
         }
 
         .item-details {
-            flex: 1;
-            padding: 0 15px;
+            text-align: left;
+            padding-left: 10px;
         }
 
         .quantity {
             display: flex;
+            justify-content: center;
             align-items: center;
         }
 
@@ -113,6 +119,7 @@
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
+            text-align: center;
         }
 
         .total-section {
@@ -124,12 +131,15 @@
         }
 
         .checkout-btn {
+            display: block;
             background-color: #ff6600;
             color: white;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
+            margin: 20px auto 0;
+            text-align: center;
         }
 
         .empty-cart-message {
@@ -211,7 +221,6 @@
     <script>
         const cartKey = 'shopCart';
 
-
         // Load cart items from local storage
         function loadCart() {
             const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
@@ -228,7 +237,6 @@
             }
         }
 
-
         // Add cart item to the DOM
         function addCartItemToDOM(id, name, price, quantity) {
             const cartItemsDiv = document.getElementById('cart-items');
@@ -236,11 +244,11 @@
             cartItemDiv.className = 'cart-item';
             cartItemDiv.setAttribute('data-product-id', id);
             cartItemDiv.innerHTML = `
-                <img src="images/product${id}.jpg" alt="${name}">
                 <div class="item-details">
+                    <img src="images/product${id}.jpg" alt="${name}">
                     <h3>${name}</h3>
-                    <p class="price">$${price.toFixed(2)}</p>
                 </div>
+                <p class="price">$${price.toFixed(2)}</p>
                 <div class="quantity">
                     <label for="quantity${id}">Qty:</label>
                     <input type="number" id="quantity${id}" value="${quantity}" min="1" onchange="updateItemQuantity(${id}, this.value)">
@@ -249,7 +257,6 @@
             `;
             cartItemsDiv.appendChild(cartItemDiv);
         }
-
 
         // Update total price
         function updateTotal() {
