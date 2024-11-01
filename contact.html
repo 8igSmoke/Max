@@ -54,13 +54,15 @@
         }
 
         .cart-icon {
-            position: relative;
-            display: inline-block;
-            color: #fff;
+            position: absolute;
+            top: -5px;
+            left: 100%;
+            margin-left: 5px;
         }
 
         .cart-icon i {
             font-size: 20px;
+            color: #fff;
         }
 
         .badge {
@@ -188,12 +190,10 @@
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li>
-                        <div class="cart-icon">
-                            <a href="cart.html">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="badge">3</span>
-                            </a>
-                        </div>
+                        <a href="cart.html" class="cart-link">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="badge" id="cart-count">0</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -238,8 +238,23 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script>
+        // Initialize cart count
+        let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
+
+        // Update cart count display
+        function updateCartCount() {
+            const cartCountElements = document.querySelectorAll('#cart-count');
+            cartCountElements.forEach(element => {
+                element.innerText = cart.length;
+            });
+        }
+
+        // Load cart count on page load
+        window.onload = function() {
+            updateCartCount();
+        }
+    </script>
 </body>
 
 </html>
