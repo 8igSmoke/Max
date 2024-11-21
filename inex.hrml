@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LZG.shop - Shop</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black theme */
+            color: #fff; /* White text */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header & Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #111; /* Slightly lighter black */
+            border-bottom: 3px solid #FFD700; /* Yellow underline */
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700; /* Yellow */
+        }
+
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #FFD700;
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Hamburger Sidebar */
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #FFD700; /* Yellow */
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #111; /* Slightly lighter black */
+            overflow-y: auto;
+            box-shadow: 3px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            padding: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            color: #FFD700; /* Yellow */
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            background-color: #FFD700;
+            color: #000;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: #111;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-details {
+            padding: 10px;
+        }
+
+        .product-details h3 {
+            margin: 10px 0;
+        }
+
+        .product-details button {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .product-details button:hover {
+            background-color: #FFC107;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo">LZG.shop</div>
+        <div class="cart-icon" id="cartIcon">
+            <img src="https://img.icons8.com/ios-filled/50/FFD700/shopping-cart.png" alt="Cart" width="30">
+            <span class="cart-counter" id="cartCounter">0</span>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Homepage</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid">
+        <!-- 18 Product Cards -->
+        <div class="product-card" data-id="1">
+            <img src="https://via.placeholder.com/200" alt="Product 1">
+            <div class="product-details">
+                <h3>Product 1</h3>
+                <p>$10.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card" data-id="2">
+            <img src="https://via.placeholder.com/200" alt="Product 2">
+            <div class="product-details">
+                <h3>Product 2</h3>
+                <p>$12.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card" data-id="3">
+            <img src="https://via.placeholder.com/200" alt="Product 3">
+            <div class="product-details">
+                <h3>Product 3</h3>
+                <p>$14.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <!-- Add 15 more cards -->
+        ${[...Array(15)].map((_, i) => {
+            const id = i + 4; // Start from Product 4
+            return `
+                <div class="product-card" data-id="${id}">
+                    <img src="https://via.placeholder.com/200" alt="Product ${id}">
+                    <div class="product-details">
+                        <h3>Product ${id}</h3>
+                        <p>$${10 + id * 2}.00</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>`;
+        }).join('')}
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Cart Logic
+        const cartCounter = document.getElementById('cartCounter');
+        const cartIcon = document.getElementById('cartIcon');
+        const productGrid = document.getElementById('productGrid');
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const updateCartCounter = () => {
+            cartCounter.textContent = cart.length;
+        };
+
+        const addToCart = (id) => {
+            if (!cart.includes(id)) {
+                cart.push(id);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCounter();
+            }
+        };
+
+        productGrid.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const card = e.target.closest('.product-card');
+                const productId = card.dataset.id;
+                addToCart(productId);
+            }
+        });
+
+        updateCartCounter();
+    </script>
+</body>
+</html>
+        <!-- 18 Product Cards -->
+        <div class="product-card" data-id="1">
+            <img src="https://via.placeholder.com/200" alt="Product 1">
+            <div class="product-details">
+                <h3>Product 1</h3>
+                <p>$10.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card" data-id="2">
+            <img src="https://via.placeholder.com/200" alt="Product 2">
+            <div class="product-details">
+                <h3>Product 2</h3>
+                <p>$12.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card" data-id="3">
+            <img src="https://via.placeholder.com/200" alt="Product 3">
+            <div class="product-details">
+                <h3>Product 3</h3>
+                <p>$14.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <!-- Add 15 more cards -->
+        ${[...Array(15)].map((_, i) => {
+            const id = i + 4; // Start from Product 4
+            return `
+                <div class="product-card" data-id="${id}">
+                    <img src="https://via.placeholder.com/200" alt="Product ${id}">
+                    <div class="product-details">
+                        <h3>Product ${id}</h3>
+                        <p>$${10 + id * 2}.00</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>`;
+        }).join('')}
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Cart Logic
+        const cartCounter = document.getElementById('cartCounter');
+        const cartIcon = document.getElementById('cartIcon');
+        const productGrid = document.getElementById('productGrid');
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const updateCartCounter = () => {
+            cartCounter.textContent = cart.length;
+        };
+
+        const addToCart = (id) => {
+            if (!cart.includes(id)) {
+                cart.push(id);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCounter();
+            }
+        };
+
+        productGrid.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const card = e.target.closest('.product-card');
+                const productId = card.dataset.id;
+                addToCart(productId);
+            }
+        });
+
+        updateCartCounter();
+    </script>
+</body>
+</html>
