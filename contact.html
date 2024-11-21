@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Contact Us - ShopMax</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header .logo {
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        nav {
+            display: inline-block;
+            float: right;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .cart-icon {
+            position: absolute;
+            top: -5px;
+            left: 100%;
+            margin-left: 5px;
+        }
+
+        .cart-icon i {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+
+        .search-bar {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid black; /* Black border when not focused */
+            width: 200px;
+            transition: border-color 0.3s; /* Smooth transition for the border */
+        }
+
+        .search-bar input:focus {
+            outline: none; /* Remove default outline */
+            border-color: orange; /* Change border to orange when focused */
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .contact-section {
+            padding: 40px 0;
+            background-color: #fff;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 2px solid black; /* Black outline for input fields */
+            transition: border-color 0.3s; /* Smooth transition for the border color */
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none; /* Remove default outline */
+            border-color: orange; /* Orange outline when focused */
+        }
+
+        .contact-form button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-form button:hover {
+            background-color: #e55b00;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .social-media a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>ShopMax</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-link">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="badge" id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <form action="products.html" method="GET">
+                    <input type="text" name="search" placeholder="Search by product..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Us Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> support@shopmax.com</p>
+                <p><strong>Phone:</strong> +1 234 567 890</p>
+                <p><strong>Address:</strong> 123 ShopMax St, E-Commerce City, EC 12345</p>
+            </div>
+
+            <form class="contact-form" action="#" method="post">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize cart count
+        let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
+
+        // Update cart count display
+        function updateCartCount() {
+            const cartCountElements = document.querySelectorAll('#cart-count');
+            cartCountElements.forEach(element => {
+                element.innerText = cart.length;
+            });
+        }
+
+        // Load cart count on page load
+        window.onload = function() {
+            updateCartCount();
+        }
+    </script>
+</body>
+
+</html>
